@@ -1,5 +1,5 @@
 ###### pure graphite-api
-FROM qnib-terminal
+FROM qnib/terminal
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
 ADD yum-cache/graphite-api /tmp/yum-cache/graphite-api
