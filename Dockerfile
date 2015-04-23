@@ -18,6 +18,3 @@ ADD etc/nginx/conf.d/diamond.conf /etc/nginx/conf.d/
 ADD etc/nginx/conf.d/graphite-api.conf /etc/nginx/conf.d/
 ADD etc/supervisord.d/graphite-api.ini /etc/supervisord.d/graphite-api.ini
 ADD etc/supervisord.d/nginx.ini /etc/supervisord.d/nginx.ini
-
-
-CMD /bin/supervisord -c /etc/supervisord.conf
