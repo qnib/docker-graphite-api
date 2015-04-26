@@ -2,8 +2,11 @@
 FROM qnib/terminal
 MAINTAINER "Christian Kniep <christian@qnib.org>"
 
-ADD yum-cache/graphite-api /tmp/yum-cache/graphite-api
-RUN yum install -y /tmp/yum-cache/graphite-api/*
+#ADD yum-cache/graphite-api /tmp/yum-cache/graphite-api
+RUN yum install -y libffi-devel
+RUN pip install --upgrade pip 
+RUN pip install graphite-api
+RUN yum install -y cairo
 
 ADD etc/graphite-api.yaml /etc/graphite-api.yaml
 RUN mkdir -p /var/lib/graphite
