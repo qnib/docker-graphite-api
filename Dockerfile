@@ -12,7 +12,7 @@ RUN mkdir -p /var/lib/graphite
 ADD etc/diamond/collectors/NginxCollector.conf /etc/diamond/collectors/NginxCollector.conf
 
 # gunicorn nginx
-RUN yum install -y python-gunicorn nginx
+RUN dnf install -y python-gunicorn nginx
 ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD etc/nginx/conf.d/*.conf /etc/nginx/conf.d/
 ADD etc/supervisord.d/*.ini /etc/supervisord.d/
