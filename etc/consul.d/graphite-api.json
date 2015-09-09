@@ -1,0 +1,19 @@
+{
+  "services": [
+    {
+        "id": "graphite-api",
+        "name": "graphite-api",
+        "tags": [],
+        "port": 80,
+        "checks": [
+          {
+            "script": "echo 'check nginx port[80]: ';nmap 127.0.0.1 -PN -p 80 | grep open",
+            "interval": "5s"
+          },{
+            "script": "echo 'check internal graphite-api port[8888]: ';nmap 127.0.0.1 -PN -p 8888 | grep open",
+            "interval": "5s"
+          }
+      ]
+    }
+  ]
+}
