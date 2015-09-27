@@ -1,0 +1,10 @@
+{
+  "service": {
+    "name": "graphite-api",
+    "port": 80,
+    "check": {
+      "script": "nmap 127.0.0.1 -PN -p 80 | grep open",
+      "interval": "5s"
+    }
+  }
+}

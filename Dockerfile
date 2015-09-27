@@ -15,6 +15,7 @@ ADD etc/diamond/collectors/NginxCollector.conf /etc/diamond/collectors/NginxColl
 # gunicorn nginx
 RUN yum install -y python-gunicorn nginx
 ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
+ADD etc/consul.d/graphite-api.json /etc/consul.d/
 ADD etc/nginx/conf.d/diamond.conf /etc/nginx/conf.d/
 ADD etc/nginx/conf.d/graphite-api.conf /etc/nginx/conf.d/
 ADD etc/supervisord.d/graphite-api.ini /etc/supervisord.d/graphite-api.ini
