@@ -1,9 +1,10 @@
 ###### pure graphite-api
 FROM qnib/terminal:fd22
 
-RUN dnf install -y libffi-devel cairo
-RUN pip install --upgrade pip 
-RUN pip install graphite_api
+RUN dnf install -y libffi-devel cairo && \
+    curl -fsL test.tar.gz https://codeload.github.com/Dieterbe/graphite-api/legacy.tar.gz/support-templates2|tar xzf - -C /opt/ && \
+    cd /opt/Dieterbe-graphite-api-b3f3cee/ && \
+    python setup.py install
 
 ADD etc/graphite-api.yaml /etc/graphite-api.yaml
 RUN mkdir -p /var/lib/graphite
