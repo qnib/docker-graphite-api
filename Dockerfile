@@ -1,8 +1,8 @@
 ###### pure graphite-api
-FROM qnib/terminal
+FROM qnib/terminal:fd22
 
 #ADD yum-cache/graphite-api /tmp/yum-cache/graphite-api
-RUN yum install -y libffi-devel cairo && \
+RUN dnf install -y libffi-devel cairo && \
     pip install --upgrade pip && \
     pip install graphite-api && \
     mkdir -p /var/lib/graphite
@@ -13,7 +13,7 @@ ADD etc/graphite-api.yaml /etc/graphite-api.yaml
 ADD etc/diamond/collectors/NginxCollector.conf /etc/diamond/collectors/NginxCollector.conf
 
 # gunicorn nginx
-RUN yum install -y python-gunicorn nginx
+RUN dnf install -y python-gunicorn nginx
 ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD etc/consul.d/graphite-api.json /etc/consul.d/
 ADD etc/nginx/conf.d/diamond.conf /etc/nginx/conf.d/
