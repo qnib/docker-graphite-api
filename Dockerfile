@@ -7,12 +7,15 @@ RUN apk update && \
     pip install graphite-api && \
     mkdir -p /var/lib/graphite && \
     # Remove some stuff - should be even less
-    apk del gcc #binutils binutils-libs musl-dev python-dev libffi-dev
+    apk del gcc libffi-dev #binutils binutils-libs musl-dev python-dev 
 
 ADD etc/graphite-api.yaml /etc/graphite-api.yaml
 
 # gunicorn nginx
+ADD etc/init.d/graphite-api /etc/init.d/
 RUN apk add py-gunicorn nginx && \
+    ln -s /etc/init.d/nginx /etc/runlevels/default/ && \
+    ln -s /etc/init.d/graphite-api /etc/runlevels/default/ && \
     rm -rf /var/cache/apk/*
 ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
 ADD etc/consul.d/graphite-api.json /etc/consul.d/
