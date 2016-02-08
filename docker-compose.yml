@@ -1,0 +1,63 @@
+consul:
+    hostname: consul
+    container_name: consul
+    image: qnib/consul
+    environment:
+     - DC_NAME=dc1
+     - BOOTSTRAP_CONSUL=true
+     - RUN_SERVER=true
+    ports:
+     - 8500:8500
+    dns:
+     - 127.0.0.1
+    
+carbon:
+    hostname: carbon
+    container_name: carbon
+    image: qnib/carbon
+    dns: 
+     - 127.0.0.1
+    environment:
+     - DC_NAME=dc1
+     - SERVICE_2003_NAME=carbon
+     - FORWARD_TO_LOGSTASH=true
+     - SKIP_PSWATCH=true
+    links:
+    - consul:consul
+    ports:
+     - 2003:2003
+
+gapi:
+    hostname: graphite-api
+    container_name: graphite-api
+    dns:
+     - 127.0.0.1
+    image: qnib/graphite-api:alpine
+    environment:
+     - DC_NAME=dc1
+     - SKIP_PSWATCH=true
+     - COLLECT_METRICS=true
+    ports:
+     - 8888:80
+    links:
+     - consul:consul
+     - carbon:carbon
+    volumes_from:
+     - carbon
+    privileged: true
+
+grafana:
+    image: qnib/grafana
+    hostname: grafana
+    container_name: grafana
+    ports:
+     - 8182:80
+    dns: 
+     - 127.0.0.1
+    environment:
+     - DC_NAME=dc1
+     - SKIP_PSWATCH=true
+    links:
+     - consul:consul
+    privileged: true
+

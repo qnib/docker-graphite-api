@@ -1,0 +1,17 @@
+#!/sbin/runscript
+  
+start() {
+    ebegin "Starting graphite-api gunicorn"
+    start-stop-daemon --start --pidfile /var/run/graphite-api.pid --name graphite-api--exec /usr/bin/gunicorn -- --daemon -w2 graphite_api.app:app -b 127.0.0.1:8888
+    eend $?
+}
+  
+stop() {
+    ebegin "Stop graphite-api gunicorn"
+    if [ -f /var/run/graphite-api.pid ]; then
+        kill $(cat /var/run/graphite-api.pid)
+    else 
+        echo "no-pidfile"
+    fi
+    eend $?
+}

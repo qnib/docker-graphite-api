@@ -1,19 +1,24 @@
 ###### pure graphite-api
-FROM qnib/terminal:fd22
+FROM qnib/alpn-syslog
 
-RUN dnf install -y libffi-devel cairo
-RUN pip install --upgrade pip 
-RUN pip install graphite_api
-
+ADD etc/init.d/graphite-api /etc/init.d/
+RUN apk update && \
+    # Graphite-API
+    apk add py-pip libffi-dev gcc python-dev musl-dev cairo && \
+    pip install --upgrade pip && \
+    pip install graphite-api && \
+    ln -s /etc/init.d/graphite-api /etc/runlevels/default/ && \
+    mkdir -p /var/lib/graphite && \
+	# gunicorn & nginx
+    apk add py-gunicorn nginx && \
+    ln -s /etc/init.d/nginx /etc/runlevels/default/ && \
+    # Remove some stuff - should be even less
+    apk del gcc libffi-dev binutils binutils-libs musl-dev python-dev  && \
+    rm -rf /var/cache/apk/*
 ADD etc/graphite-api.yaml /etc/graphite-api.yaml
-RUN mkdir -p /var/lib/graphite
+ADD etc/consul.d/graphite-api.json \
+    etc/consul.d/nginx.json \
+    /etc/consul.d/
 
-## Diamond
-ADD etc/diamond/collectors/NginxCollector.conf /etc/diamond/collectors/NginxCollector.conf
-
-# gunicorn nginx
-RUN dnf install -y python-gunicorn nginx
 ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
-ADD etc/nginx/conf.d/*.conf /etc/nginx/conf.d/
-ADD etc/supervisord.d/*.ini /etc/supervisord.d/
-ADD etc/consul.d/*.json /etc/consul.d/
+ADD etc/nginx/conf.d/graphite-api.conf /etc/nginx/conf.d/
