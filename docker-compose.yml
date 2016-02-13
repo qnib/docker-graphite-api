@@ -1,7 +1,7 @@
 consul:
     hostname: consul
-    container_name: consul
-    image: qnib/consul
+    container_name: ${USER}_consul
+    image: qnib/alpn-consul
     environment:
      - DC_NAME=dc1
      - BOOTSTRAP_CONSUL=true
@@ -32,7 +32,7 @@ gapi:
     container_name: graphite-api
     dns:
      - 127.0.0.1
-    image: qnib/graphite-api:alpine
+    image: qnib/graphite-api
     environment:
      - DC_NAME=dc1
      - SKIP_PSWATCH=true
