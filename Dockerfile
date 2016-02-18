@@ -6,7 +6,7 @@ RUN apk update && \
     # Graphite-API
     apk add py-pip libffi-dev gcc python-dev musl-dev cairo && \
     pip install --upgrade pip && \
-    pip install graphite-api && \
+    pip install https://github.com/zeph/graphite-api/zipball/master && \
     mkdir -p /var/lib/graphite && \
 	# gunicorn & nginx
     apk add py-gunicorn nginx && \
