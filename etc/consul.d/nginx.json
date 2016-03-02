@@ -8,7 +8,7 @@
         "checks": [
           {
             "script": "echo 'fetch metrics from nginx (port[80]): '; wget -qO- '0.0.0.0/metrics/find/?query=*'",
-            "interval": "5s"
+            "interval": "300s"
           }
       ]
     }
