@@ -7,8 +7,8 @@
         "port": 80,
         "checks": [
           {
-            "script": "echo 'fetch metrics from nginx (port[80]): '; wget -qO- 'localhost:80/render?format=raw&from=-60s&target=carbon.agents.*.metricsReceived'",
-            "interval": "5s"
+            "script": "echo 'fetch metrics from nginx (port[80]): '; wget -qO- '0.0.0.0/metrics/find/?query=*'",
+            "interval": "300s"
           }
       ]
     }
