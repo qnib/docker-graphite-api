@@ -5,7 +5,6 @@ ADD etc/init.d/graphite-api /etc/init.d/
 RUN apk update && \
     # Graphite-API
     apk add py-pip libffi-dev gcc python-dev musl-dev cairo && \
-    pip install --upgrade pip && \
     pip install graphite-api && \
     mkdir -p /var/lib/graphite && \
 	# gunicorn & nginx
