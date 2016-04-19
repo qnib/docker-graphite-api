@@ -4,7 +4,7 @@ FROM qnib/alpn-syslog
 ADD etc/init.d/graphite-api /etc/init.d/
 RUN apk update && \
     # Graphite-API
-    apk add py-pip libffi-dev gcc python-dev musl-dev cairo jq && \
+    apk add py-pip libffi-dev gcc python-dev musl-dev cairo jq nmap && \
     pip install --upgrade pip
 RUN pip install https://github.com/zeph/graphite-api/zipball/master
 RUN mkdir -p /var/lib/graphite && \
