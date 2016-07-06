@@ -1,5 +1,5 @@
 ###### pure graphite-api
-FROM qnib/alpn-syslog
+FROM qnib/alpn-rsyslog
 
 ADD etc/init.d/graphite-api /etc/init.d/
 RUN apk update && \
